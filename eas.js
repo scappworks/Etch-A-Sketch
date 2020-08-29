@@ -6,6 +6,11 @@ let populateGrid = () => {
     let gridRowNumber = 16;
     let expectedGridSize = gridColumnNumber * gridRowNumber;
 
+    gridParent.style.setProperty("grid-template-columns", "repeat(" + 
+    gridColumnNumber + ", auto)");
+    gridParent.style.setProperty("grid-template-rows", "repeat(" + 
+    gridRowNumber + ", auto)");
+
     for (i = 1; i <= gridRowNumber; i++) {
         for (j = 1; j <= gridColumnNumber; j++) {
             if (i !== 1 || j !== 1) {
@@ -18,6 +23,20 @@ let populateGrid = () => {
             }
         }
     }
+
+    gridChild = gridParent.classList;
+
+    for (i = 0; i < gridChild.length; i++) {
+        gridChild[i].addEventListener("mouseover", function() {
+            gridChild[i].style.setProperty("background", "yellow");
+            console.log(gridChild[i]);
+            console.log(gridChild.length);
+        }, false);
+    }
+
+    
+    console.log(expectedGridSize);
+    console.log(gridParent.childElementCount);
 };
 
 populateGrid();
