@@ -19,22 +19,36 @@ let populateGrid = () => {
                 newChild.style.setProperty("grid-column-end", j);
                 newChild.style.setProperty("grid-row-start", i);
                 newChild.style.setProperty("grid-row-end", i);
+                newChild.addEventListener("mouseover", function() {
+                    newChild.style.setProperty("background", "yellow");
+                    });
                 gridParent.appendChild(newChild);
+            }
+
+            else {
+                let newChild = gridChild[0].cloneNode();
+                newChild.style.setProperty("grid-column-start", j);
+                newChild.style.setProperty("grid-column-end", j);
+                newChild.style.setProperty("grid-row-start", i);
+                newChild.style.setProperty("grid-row-end", i);
+                newChild.addEventListener("mouseover", function() {
+                    newChild.style.setProperty("background", "yellow");
+                    });
+                gridParent.appendChild(newChild);
+
+                gridParent.removeChild(gridParent.firstElementChild);
             }
         }
     }
 
-    gridChild = gridParent.classList;
-
-    for (i = 0; i < gridChild.length; i++) {
-        gridChild[i].addEventListener("mouseover", function() {
-            gridChild[i].style.setProperty("background", "yellow");
-            console.log(gridChild[i]);
-            console.log(gridChild.length);
-        }, false);
+    let gridChildren = gridParent.childNodes;
+    /*
+    for (i = 0; i <= gridChild.length; i++) {
+        gridChildren[i].addEventListener("mouseover", function() {
+        gridChildren[i].style.setProperty("background", "yellow");
+        });
     }
-
-    
+    */
     console.log(expectedGridSize);
     console.log(gridParent.childElementCount);
 };
