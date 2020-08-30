@@ -1,5 +1,10 @@
 let gridParent = document.querySelector("#grid-container");
 let gridChild = gridParent.children;
+let resetButton = document.querySelector("#reset-button");
+
+resetButton.addEventListener("click", function() {
+    
+});
 
 let populateGrid = () => {
     let gridColumnNumber = 16;
@@ -35,20 +40,11 @@ let populateGrid = () => {
                     newChild.style.setProperty("background", "yellow");
                     });
                 gridParent.appendChild(newChild);
-
                 gridParent.removeChild(gridParent.firstElementChild);
             }
         }
     }
-
-    let gridChildren = gridParent.childNodes;
-    /*
-    for (i = 0; i <= gridChild.length; i++) {
-        gridChildren[i].addEventListener("mouseover", function() {
-        gridChildren[i].style.setProperty("background", "yellow");
-        });
-    }
-    */
+    
     console.log(expectedGridSize);
     console.log(gridParent.childElementCount);
 };
