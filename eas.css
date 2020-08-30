@@ -1,5 +1,5 @@
 body {
-    height: 97vh;
+    height: 85vh;
     width: 97vw;
 }
 
@@ -9,7 +9,7 @@ body {
     grid-template-rows: repeat(16, auto);
     height: 100%;
     width: 100%;
-    border: 3px solid black;
+    border: 1px solid black;
 }
 
 #reset-button {
@@ -29,5 +29,5 @@ body {
     grid-column-end: 1;
     grid-row-start: 1;
     grid-row-end: 1;
-    border: 3px solid black;
+    border: 1px solid black;
 }
