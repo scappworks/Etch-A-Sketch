@@ -63,6 +63,18 @@ let populateGrid = (col = -1, row = -1, started = false) => {
             newChild.style.setProperty("grid-row-end", i);
             newChild.addEventListener("mouseover", function() {
                 let color = getRandomColor();
+
+                if ((getTimesTouched(
+                    newChild.style.getPropertyValue("grid-row-start"),
+                    newChild.style.getPropertyValue("grid-column-start"),
+                    gridColumnNumber)) 
+                    > 0) {
+                        /****************************IT'S HERE******************/
+                        newColor = (color & 0xfefefe) >> 0.1;
+                        color += newColor;
+                        }
+                    
+
                 newChild.style.setProperty("background", color);
 
                 if (timesTouchedNumberArray.length > 0) {
