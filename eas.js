@@ -3,7 +3,7 @@ let gridChild = gridParent.children;
 let resetButton = document.querySelector("#reset-button");
 let firstRun = true;
 let timesTouchedNumberArray = [];
-let timesTouchedNodeArray = [];
+//let timesTouchedNodeArray = [];
 
 resetButton.addEventListener("click", function() {
     let tempColumn = prompt("Enter a number of columns");
@@ -48,6 +48,7 @@ let populateGrid = (col = -1, row = -1, started = false) => {
     if (gridParent.children.length > 1) {
         for (i = gridParent.children.length; i > 1; i--) {
             gridParent.removeChild(gridParent.lastChild);
+            timesTouchedNumberArray.pop();
         }
     }
 
@@ -60,21 +61,26 @@ let populateGrid = (col = -1, row = -1, started = false) => {
             newChild.style.setProperty("grid-column-end", j);
             newChild.style.setProperty("grid-row-start", i);
             newChild.style.setProperty("grid-row-end", i);
-            newChild.style.setProperty("counter", "0");
             newChild.addEventListener("mouseover", function() {
-                newChild.style.getPropertyValue("counter");
                 let color = getRandomColor();
                 newChild.style.setProperty("background", color);
 
                 if (timesTouchedNumberArray.length > 0) {
-                    for (x = timesTouchedNumberArray.length; x > 0; x--) {
-                        if (timesTouchedNodeArray[x] === 
-                            gridParent.children[x]) {
-                            setTimesTouched(0, x, true);
-                        }
+                    setTimesTouched(0,
+                        newChild.style.getPropertyValue("grid-row-start"),
+                        newChild.style.getPropertyValue("grid-column-start"),
+                        gridColumnNumber, true);
+
+                    if ((getTimesTouched(
+                        newChild.style.getPropertyValue("grid-row-start"),
+                        newChild.style.getPropertyValue("grid-column-start"),
+                        gridColumnNumber)) 
+                        >= 10) {
+                        color = "#000000";
+                        newChild.style.setProperty("background", color);
                     }
                 }
-                });
+            });
 
             if (i !== 1 || j !== 1) {
                 gridParent.appendChild(newChild);
@@ -83,35 +89,48 @@ let populateGrid = (col = -1, row = -1, started = false) => {
             else {
                 gridParent.appendChild(newChild);
                 gridParent.removeChild(gridParent.firstElementChild);
-                
-                for (y = timesTouchedNumberArray.length; y > 0; y--) {
-                    timesTouchedNumberArray.pop();
-                }
             }
 
             if (i === gridRowNumber && j === gridColumnNumber) {
-                setTimesTouched(gridParent.children.length, 0, false);
+                if (timesTouchedNumberArray > 0) {
+                    for (y = timesTouchedNumberArray.length; y > 0; y--) {
+                        timesTouchedNumberArray.pop();
+                    }
+                }
+                
+                setTimesTouched(gridParent.children.length, 0, 0,
+                    gridColumnNumber, false);
             }
         }
     }
 };
 
-function setTimesTouched(NumberOfChildren = 0, indexOfChild = 0, 
-    started = false) {
+function setTimesTouched(NumberOfChildren = 0, row = 0, column = 0, 
+    numberOfColumns = 0, started = false) {
+        let indexOfChild = (parseInt(row) - 1) *
+        parseInt(numberOfColumns) + (parseInt(column) - 1);
+
         if (!(started)) {
             for (i = 0; i < NumberOfChildren; i++)
             {
                 timesTouchedNumberArray[i] = 0;
             }
 
-            timesTouchedNodeArray = gridParent.children;
             console.log("Arr " + timesTouchedNumberArray);
         }
 
     else {
         timesTouchedNumberArray[indexOfChild]++;
-        console.log("index " + indexOfChild);
+        console.log("Arr " + timesTouchedNumberArray);
+        console.log(indexOfChild);
     }
+}
+
+function getTimesTouched(row = 0, column = 0, numberOfColumns = 0) {
+    let indexOfChild = (parseInt(row) - 1) *
+        parseInt(numberOfColumns) + (parseInt(column) - 1);
+
+    return timesTouchedNumberArray[indexOfChild];
 }
 
 function getRandomColor() {
