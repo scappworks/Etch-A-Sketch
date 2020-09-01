@@ -1,1 +1,1 @@
-This is a cross between and Etch-A-Sketch and a sketchpad
+This is a cross between an Etch-A-Sketch and a sketchpad
